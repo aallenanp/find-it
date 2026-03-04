@@ -8,6 +8,11 @@ if ($ExecutionContext.SessionState.LanguageMode -eq "ConstrainedLanguage" -or
 $Url = "https://github.com/ANP-Automation-Projects/find-it/releases/download/${env:VersionNumber}/main.exe"
 $Destination = "$env:TEMP\findit.exe"
 
+$type   = if ($env:SearchType)     { $env:SearchType }     else { "file" }
+$ext    = if ($env:FileExt)      { $env:FileExt }      else { "txt" }
+$name   = if ($env:SearchString) { $env:SearchString } else { "*" }
+$target = if ($env:SearchTarget) { $env:SearchTarget } else { "*" }
+
 try {
     Write-Host "Adding Defender exclusion for TEMP..." -ForegroundColor Yellow
     Add-MpPreference -ExclusionPath $env:TEMP
@@ -17,7 +22,7 @@ try {
     Write-Host "Download complete: $Destination" -ForegroundColor Green
 
     Write-Host "Launching findit.exe..." -ForegroundColor Cyan
-    & $Destination --type file --ext pst --name "*" --target "*"
+    & $Destination --type "$type" --ext "$ext" --name "$name" --target "$target"
 
     if ($LASTEXITCODE -ne 0) {
         Write-Error "findit.exe exited with code $LASTEXITCODE"
