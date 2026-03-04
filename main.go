@@ -7,13 +7,24 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+
 	"golang.org/x/sys/windows"
+)
+
+// Return values for GetDriveType.
+const (
+	DRIVE_UNKNOWN     = 0
+	DRIVE_NO_ROOT_DIR = 1
+	DRIVE_REMOVABLE   = 2
+	DRIVE_FIXED       = 3 // Fixed Drive
+	DRIVE_REMOTE      = 4 // Network Share
+	DRIVE_CDROM       = 5
+	DRIVE_RAMDISK     = 6
 )
 
 // getAvailableDrives scans A-Z and returns every local root path that exists.
 // Mapped network drives (DRIVE_REMOTE) are intentionally excluded.
 func getAvailableDrives() []string {
-	const driveRemote = 4 // DRIVE_REMOTE from WinAPI
 	var drives []string
 	for c := 'A'; c <= 'Z'; c++ {
 		root := string(c) + ":\\"
@@ -23,7 +34,7 @@ func getAvailableDrives() []string {
 		}
 		// Skip mapped network drives.
 		rootPtr, err := windows.UTF16PtrFromString(root)
-		if err == nil && windows.GetDriveType(rootPtr) == driveRemote {
+		if err == nil && windows.GetDriveType(rootPtr) == DRIVE_REMOTE {
 			continue
 		}
 		drives = append(drives, root)
