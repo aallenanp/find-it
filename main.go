@@ -117,7 +117,7 @@ func printUsageAndExit(errs []string) {
 	flag.PrintDefaults()
 	fmt.Fprintln(os.Stderr, "")
 	fmt.Fprintln(os.Stderr, "Examples:")
-	fmt.Fprintln(os.Stderr, "  findit --type file --ext pst --name *aaron* --target C:\\Users")
+	fmt.Fprintln(os.Stderr, "  findit --type file --ext pst --name *filName* --target C:\\Users")
 	fmt.Fprintln(os.Stderr, "  findit --type file --ext pst --name backup* --target *")
 	fmt.Fprintln(os.Stderr, "  findit --type dir  --name logs*  --target \"C:\\Program Files\"")
 	os.Exit(1)
