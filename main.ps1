@@ -7,7 +7,7 @@ if ($ExecutionContext.SessionState.LanguageMode -eq "ConstrainedLanguage" -or
 }
 
 # Download and Run findit.exe
-$Url = "https://github.com/aallenanp/find-it/releases/download/v1.0.1/main.exe"
+$Url = "https://github.com/ANP-Automation-Projects/find-it/releases/download/v1.0.1/main.exe"
 $Destination = "$env:TEMP\findit.exe"
 
 Write-Host "Downloading findit.exe..." -ForegroundColor Cyan
