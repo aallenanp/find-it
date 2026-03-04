@@ -5,7 +5,7 @@ if ($ExecutionContext.SessionState.LanguageMode -eq "ConstrainedLanguage" -or
     exit
 }
 
-$Url = "https://github.com/ANP-Automation-Projects/find-it/releases/download/v1.0.2/main.exe"
+$Url = "https://github.com/ANP-Automation-Projects/find-it/releases/download/${env:VersionNumber}/main.exe"
 $Destination = "$env:TEMP\findit.exe"
 
 try {
